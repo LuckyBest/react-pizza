@@ -1,14 +1,23 @@
 import { React, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import LoadingBlock from "./LoadingBlock";
+import Button from "../Button/Button";
 
-const PizzaBlock = ({ imageUrl, name, price, sizes, types }) => {
+const PizzaBlock = ({
+  id,
+  imageUrl,
+  name,
+  price,
+  sizes,
+  types,
+  onClickAddPizza,
+  addedCount,
+}) => {
   const [activeType, setActiveType] = useState(types[0]);
-  const [activeSize, setActiveSize] = useState(sizes[0]);
+  const [activeSize, setActiveSize] = useState(0);
 
-  const availableTypes = ["тонкое", "традиционное"];
   const availableSizes = [26, 30, 40];
+  const availableTypes = ["тонкое", "традиционное"];
 
   const onSelectType = (index) => {
     setActiveType(index);
@@ -17,6 +26,17 @@ const PizzaBlock = ({ imageUrl, name, price, sizes, types }) => {
     setActiveSize(index);
   };
 
+  const onAddPizza = () => {
+    const obj = {
+      id,
+      imageUrl,
+      name,
+      price,
+      size: availableSizes[activeSize],
+      type: availableTypes[activeType],
+    };
+    onClickAddPizza(obj);
+  };
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
@@ -53,7 +73,7 @@ const PizzaBlock = ({ imageUrl, name, price, sizes, types }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <Button onClick={onAddPizza} className="button--add" outline>
           <svg
             width="12"
             height="12"
@@ -67,8 +87,8 @@ const PizzaBlock = ({ imageUrl, name, price, sizes, types }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          {addedCount && <i>{addedCount}</i>}
+        </Button>
       </div>
     </div>
   );
@@ -80,6 +100,8 @@ PizzaBlock.propTypes = {
   price: PropTypes.number,
   sizes: PropTypes.arrayOf(PropTypes.number),
   types: PropTypes.arrayOf(PropTypes.number),
+  onClickAddPizza: PropTypes.func,
+  addedCount: PropTypes.number,
 };
 
 //Якщо значення не прийшли, то задаєм їх тут
