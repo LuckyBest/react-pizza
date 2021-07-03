@@ -5,4 +5,5 @@ export { default as SortPopup } from "./SortPopup/SortPopup.jsx";
 export { default as PizzaBlock } from "./PizzaBlock/index";
 export { default as PizzaLoadingBlock } from "./PizzaBlock/LoadingBlock";
 export { default as Home } from "./Pages/Home/Home.jsx";
+export { default as CartItem } from "./CartItem/CartItem";
 export { default as Cart } from "./Pages/Cart/Cart.jsx";

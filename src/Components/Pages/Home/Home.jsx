@@ -70,7 +70,9 @@ const Home = () => {
               <PizzaBlock
                 onClickAddPizza={handleAddPizzaToCart}
                 key={pizza.id}
-                addedCount={cartItems[pizza.id] && cartItems[pizza.id].length}
+                addedCount={
+                  cartItems[pizza.id] && cartItems[pizza.id].items.length
+                }
                 {...pizza}
               />
             ))
